@@ -44,7 +44,7 @@ class Stateful extends Component {
 export default Stateful;
 ```
 
-También tenemos componentes **Stateless** o Presentacionales. Los usamos creando funciones que devuelvan código en formato JSX (del cual hablaremos en la próxima clase).
+También tenemos componentes **Stateless** o Presentacionales. Los usamos creando funciones que devuelvan código en formato JSX .
 
 ```js
 import React from 'react';
