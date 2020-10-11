@@ -11,7 +11,7 @@ import '../assets/styles/App.scss';
 
 const API = 'http://localhost:3000/initialState/';
 
-const App = () => {
+const Home = () => {
   // Cuando usamos solo () es un return implicito pero al necesitar usar estado usamos {} y un return explicito
 
   const initialState = InitialState(API);
@@ -54,4 +54,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

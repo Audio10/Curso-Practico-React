@@ -159,6 +159,10 @@ Ahora que entendemos las fases que cumple el ciclo de vida en React vamos a entr
 
 
 
+## Ciclo de vida de un componente.
+
+
+
 ### Montado:
 
 **Constructor()**
@@ -546,7 +550,7 @@ json-server archivoParaTuAPI.json
 
 ## React Hooks: useEffect y useState
 
-En esta clase el profesor Oscar Barajas nos enseña qué es y cómo implementar React Hooks: una característica de React disponible a partir de la versión 16.8 que nos permite agregar estado y ciclo de vida a nuestros componentes creados como funciones.
+React Hooks: una característica de React disponible a partir de la versión 16.8 que nos permite agregar estado y ciclo de vida a nuestros componentes creados como funciones.
 
 React es una librería desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: páginas web, aplicaciones móviles o de escritorio, experiencias de realidad virtual, entre otras.
 
@@ -586,9 +590,11 @@ const Component = () => {
 
   useEffect(() => {
     document.title = name;
+      // Si retornas una funcion esta se ejecuta cuando se desmonta el componente.
     return () => {
       document.title = 'el componente se desmontó';
     };
+      // Propiedad a cambiar para usar use effect
   }, [name]);
 
   return <div>{name}</div>;
@@ -639,3 +645,34 @@ Component.propTypes = {
   list: PropTypes.array, // opcional
 };
 ```
+
+
+
+# React Router
+
+
+
+## Crear nuestro archivo de Rutas
+
+Dentro de nuestro proyecto vamos a crear una carpeta llamada `routes` donde vamos a ir añadiendo las rutas que necesitemos en la aplicación.
+
+Las rutas que añadamos debemos definirlas con el componente `Route` y estas deben estar encapsuladas dentro del componente `BrowserRouter` del paquete de `react-router-dom`. Para definir una ruta con el componente Route debemos pasarle las props de:
+
+- `path` para indicar la url.
+- `exact` si queremos que funcione única y exactamente con la url que le digamos.
+- `component` para indicarle el componente que va a renderizar.
+
+```javascript
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from '../containers/Home';
+
+const App = () => (
+  <BrowserRouter>
+    <Route exact path='/' component={Home} />
+  </BrowserRouter>
+);
+
+export default App;
+```
+
