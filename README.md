@@ -676,3 +676,145 @@ const App = () => (
 export default App;
 ```
 
+
+
+## Uso de rutas con webpack.
+
+Debemos modificar nuestra configuración del entorno de desarrollo local para que pueda funcionar con el uso de rutas, debemos ir al archivo `webpack.config.js` y añadir este fragmento de código antes de `plugins`:
+
+```javascript
+module.exports = {
+  {/*...*/}
+  devServer: {  
+    historyApiFallback: true,  
+  },
+  {/*...*/}
+}
+```
+
+
+
+## Switch
+
+Se utiliza el switch para estar seguros que solo se renderiza el primer hijo proveniente del match.
+
+```javascript
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from '../containers/Home';
+import Login from '../containers/Login';
+import Register from '../containers/Register';
+
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
+    </Switch>
+  </BrowserRouter>
+);
+
+export default App;
+```
+
+
+
+## Container: 404 Not Found
+
+Es importante siempre tener una ruta que renderice un componente para las urls que no existan, debemos añadir esta ruta al final del Switch para que sea el caso por default.
+
+Fragment nos permite no añadir elementos extra al DOM, podemos utilizar Fragment de 2 maneras:
+
+1. Añadiendo el componente ``o ``.
+2. O implemente encapsulando nuestros elementos dentro de `<>`.
+
+
+
+## Layout
+
+Creación de un layout para no repetir el login y footer. Con esta implementación se maneja un layout, el cual recibe un children que viene siendo un componente, el cual se renderizara donde se le indique en el código.
+
+**Layout**
+
+```js
+import React from 'react';
+import Header from './Header';
+import Footer from './Footer';
+
+const Layout = ({ children }) => (
+  <div className='App'>
+    <Header />
+    {children}
+    <Footer />
+  </div>
+);
+
+export default Layout;
+```
+
+**App**
+
+```javascript
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from '../containers/Home';
+import Login from '../containers/Login';
+import Register from '../containers/Register';
+import NotFound from '../containers/NotFound';
+import Layout from '../components/Layout';
+
+const App = () => (
+  <BrowserRouter>
+    <Layout>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
+  </BrowserRouter>
+);
+
+export default App;
+```
+
+
+
+## Manejando enlaces y configuraciones.
+
+Utilizamos Link proveniente de react-router-dom para realizar la navegación sin refrescar las paginas.
+
+```
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../assets/styles/components/Header.scss';
+import logo from '../assets/static/logo-platzi-video-BW2.png';
+import userIcon from '../assets/static/user-icon.png';
+
+const Header = () => (
+  <header className="header">
+    <Link to="/">
+      <img className="header__img" src={logo} alt="Platzi Video" />
+    </Link>
+    <div className="header__menu">
+      <div className="header__menu--profile">
+        <img src={userIcon} alt="" />
+        <p>Perfil</p>
+      </div>
+      <ul>
+        <li>
+          <a href="/">Cuenta</a>
+        </li>
+        <li>
+          <Link to="/login">Cerrar Sesión</Link>
+        </li>
+      </ul>
+    </div>
+  </header>
+);
+
+export default Header;
+```
+
