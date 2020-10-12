@@ -818,3 +818,51 @@ const Header = () => (
 export default Header;
 ```
 
+
+
+## Instalación de Redux
+
+Vamos a instalar las dependencias para poder trabajar con Redux:
+
+```
+npm install redux react-redux --save
+```
+
+Dentro de nuestro proyecto vamos a crear una carpeta para nuestros **actions** y otra para los **reducers** que utilizaremos en Redux.
+
+El paquete `react-redux` nos proporciona un `Provider` para poder encapsular nuestros componentes por medio de un connect para poder transmitir la información que necesitemos del store a cada componente.
+
+
+
+## Provider
+
+El `<Provider />` hace que la `store` de Redux esté disponible para cualquier componente anidado que se haya incluido en la función `connect()`.
+.
+Dado que cualquier componente React en una aplicación React Redux se puede conectar, la mayoría de las aplicaciones mostrarán un `<Provider>` en el nivel superior, con el árbol de componentes completo de la aplicación dentro de él. Normalmente, no puede usar un componente conectado a menos que esté anidado dentro de un `<Provider>.`
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import App from './routes/App';
+
+// De esta forma le decimos a todos los componentes del App que tienen un provider
+ReactDOM.render(
+  <Provider>
+    <App />
+  </Provider>,
+  document.getElementById('app'),
+);
+```
+
+
+
+## Creando el Store de Redux
+
+Para crear un Store necesitamos llamar a la función `createStore` del paquete de `redux` pasándole los parámetros del reducer y initialState.
+
+Para conectar un componente a Redux vamos a necesitar importar `connect` de `react-redux`, connect va a aceptar dos parámetros:
+
+1. mapStateToProps: es una función que le va a indicar al provider qué información necesitamos del store.
+2. mapDispatchToProps: es un objeto con las distintas funciones para ejecutar una action en Redux.
